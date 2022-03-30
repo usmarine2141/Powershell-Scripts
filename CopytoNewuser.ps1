@@ -4,8 +4,8 @@ Do {
    #Starts logging in the following path
    Start-Transcript -Path C:\Temp\NewUser.log -Append
 
+   #CAPTURES USERNAME TO COPY
    Write-Host "Enter an AD Username to copy: " -ForegroundColor Green -NoNewline
-   
    $InputUser = Read-Host
    $User = Get-AdUser -Identity $InputUser -Properties OfficePhone, Title, Department, State, Streetaddress, City, Country,  Office, HomePage, Fax, Description, co, OfficePhone, PostalCode
    $DN = $User.distinguishedName
@@ -42,6 +42,7 @@ Do {
    $upn = $NewUser+"@$Domain"
    #if you have to manually enter proxy addresses for O365 modify the prox1/2 variable and add more if needed be sure to add it to the set-aduser command at the end
    #Uncomment the prox1/2 variables if you need these.
+   #ALSO UNCOMMENT LINE 115 TO SET THE PROXY ADDRESSES
    #$prox1 = "SMTP:$firstname.$lastname"+"@yourdomain.com"
    #$prox2 = "smtp:$firstname.$lastname"+"@yourdomain.com"
    
@@ -110,6 +111,7 @@ Do {
    Set-ADUser -Identity $Newuser -Description $title -Title $title -Department $dept -Company $companyname -Manager $mgr -StreetAddress $street -City $city -State $state -PostalCode $zip -country $country 
    Set-ADUser -Identity $NewUser -CannotChangePassword:$False -PasswordNeverExpires:$False
    Set-ADUser -Identity $NewUser -DisplayName $displayname
+   #UNCOMMENT THIS BELOW IF NEED TO SET PROXY ADDRESSES
    #Set-ADUser $newuser -add @{ProxyAddresses="$prox1,$prox2" -split ","}
    set-aduser $NewUser -EmailAddress $email
    Enable-ADAccount -Identity $NewUser
