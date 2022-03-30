@@ -41,8 +41,9 @@ Do {
    
    $upn = $NewUser+"@$Domain"
    #if you have to manually enter proxy addresses for O365 modify the prox1/2 variable and add more if needed be sure to add it to the set-aduser command at the end
-   $prox1 = "SMTP:$firstname.$lastname"+"@yourdomain.com"
-   $prox2 = "smtp:$firstname.$lastname"+"@yourdomain.com"
+   #Uncomment the prox1/2 variables if you need these.
+   #$prox1 = "SMTP:$firstname.$lastname"+"@yourdomain.com"
+   #$prox2 = "smtp:$firstname.$lastname"+"@yourdomain.com"
    
    #Sets Email address in AD User account using fn.ln@domain.com
    $email = "$firstname.$lastname"+"@yourdomain.com"
@@ -59,6 +60,7 @@ Do {
    $country = "US"
    
    
+   #Output what you entered 
    Write-Host "`n---------------------------------------------------------------`n"
    Write-Host "`Username:           " -ForegroundColor Yellow -NoNewline
    Write-Host "$NewUser" 
@@ -108,7 +110,7 @@ Do {
    Set-ADUser -Identity $Newuser -Description $title -Title $title -Department $dept -Company $companyname -Manager $mgr -StreetAddress $street -City $city -State $state -PostalCode $zip -country $country 
    Set-ADUser -Identity $NewUser -CannotChangePassword:$False -PasswordNeverExpires:$False
    Set-ADUser -Identity $NewUser -DisplayName $displayname
-   Set-ADUser $newuser -add @{ProxyAddresses="$prox1,$prox2" -split ","}
+   #Set-ADUser $newuser -add @{ProxyAddresses="$prox1,$prox2" -split ","}
    set-aduser $NewUser -EmailAddress $email
    Enable-ADAccount -Identity $NewUser
    
