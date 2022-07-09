@@ -27,7 +27,7 @@ foreach($Index in $GroupIndex)
     write-host "$Index) $CurrentGroup"
 }
 
-Write-host "Enter the corresponding group number to delete. For multiple groups, seperate each w/ a comma (1,2,3 etc..): " -ForegroundColor Green -NoNewLine
+Write-host "Enter the corresponding group number to delete. For multiple groups, seperate each w/ a comma: " -ForegroundColor Green -NoNewLine
 $SelectGroupIndex = Read-Host 
 
 $MultiGroupIndex = $SelectGroupIndex -split ","
@@ -55,11 +55,10 @@ write-host 'Password Set' -ForegroundColor Green
 [System.Environment]::NewLine
 [System.Environment]::NewLine
 
-#Notify going to connect to O365 to sign out of all Sessions
+#Notify goingn to connect to O365 to sign out of all Sessions
 write-host 'Now we will sign them out of O365 Sessions' -ForegroundColor Green
 Write-host 'Installing dependencies for AzureAD and O365' -ForegroundColor Green
 [System.Environment]::NewLine
-Start-Sleep -Seconds 3
 
 #installing azure AD
 $AzureIsInstalled = Get-Module AzureAD
@@ -73,7 +72,6 @@ if(!$AzureIsInstalled)
 #Connect to O365 
 write-host "Connecting to Azure AD now" -ForegroundColor Green
 write-host "DO NOT HIT ENTER AT PASSWORD PROMPT, CLICK SIGNIN" -ForegroundColor Red
-Start-Sleep -Seconds 3
 Connect-AzureAD
 
 
